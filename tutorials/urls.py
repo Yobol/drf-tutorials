@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('', include('tutorials.snippets.urls')),
+    path('', include('tutorials.snippets_drf.urls')),
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
