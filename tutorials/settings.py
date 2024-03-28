@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 
     "tutorials.snippets",
     "tutorials.snippets_drf",
+    "tutorials.snippets_drf2",
+    "tutorials.snippets_drf3",
 ]
 
 REST_FRAMEWORK = {
