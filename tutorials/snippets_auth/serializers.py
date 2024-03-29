@@ -26,7 +26,7 @@ from rest_framework import serializers
 
 from tutorials.snippets_auth.models import Snippet
 
-class SnippetSerializer(serializers.ModelSerializer):
+class SnippetSerializer(serializers.HyperlinkedModelSerializer):
     """
     It's important to remember that ModelSerializer classes don't do anything particularly magical, 
     they are simply a shortcut for creating serializer classes:
@@ -50,18 +50,25 @@ class SnippetSerializer(serializers.ModelSerializer):
     # We could have also used CharField(read_only=True) here.
     owner = serializers.ReadOnlyField(source='owner.username')
 
+    # You should name the specific in the urls.py.
+    highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
+
     class Meta:
         model = Snippet
-        fields = ['id', 'title', 'owner', 'code', 'linenos', 'language', 'style']
+        fields = [
+            'url', 'id', 'title', 'owner', 'code', 'highlight', 'linenos', 'language', 'style'
+        ]
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
         # Because 'snippets' is a reverse relationship on the User model, 
         # it will not be included by default when using the ModelSerializer class, 
         # so we needed to add an explicit field for it.
-        snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
+        #
+        # You should name the specific in the urls.py.
+        snippets = serializers.HyperlinkedRelatedField(many=True, view_name='snippet-detail', read_only=True)
 
         class Meta:
             model = User
-            fields = ['id', 'username', 'snippets']
+            fields = ['url', 'id', 'username', 'snippets']
         
