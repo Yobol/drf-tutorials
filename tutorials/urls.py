@@ -19,20 +19,15 @@ from django.urls import path, include
 
 from rest_framework import routers
 
-from tutorials.quickstart import views
+from tutorials.snippets_auth import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+router.register(r'snippets', views.SnippetViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('', include('tutorials.snippets.urls'), name = 'snippets'),
-    path('', include('tutorials.snippets_drf.urls'), name = 'snippets_drf'),  # rest_framework.decorators.api_view
-    path('', include('tutorials.snippets_drf2.urls'), name = 'snippets_drf2'), # rest_framework.views.APIView
-    path('', include('tutorials.snippets_drf3.urls'), name = 'snippets_drf3'), # rest_framework.mixins.*Mixin
-    path('', include('tutorials.snippets_auth.urls'), name = 'snippets_auth'), # rest_framework.mixins.*Mixin
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
