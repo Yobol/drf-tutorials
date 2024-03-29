@@ -32,6 +32,7 @@ urlpatterns = [
     path('', include('tutorials.snippets_drf.urls'), name = 'snippets_drf'),  # rest_framework.decorators.api_view
     path('', include('tutorials.snippets_drf2.urls'), name = 'snippets_drf2'), # rest_framework.views.APIView
     path('', include('tutorials.snippets_drf3.urls'), name = 'snippets_drf3'), # rest_framework.mixins.*Mixin
+    path('', include('tutorials.snippets_auth.urls'), name = 'snippets_auth'), # rest_framework.mixins.*Mixin
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
